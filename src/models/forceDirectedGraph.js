@@ -126,13 +126,27 @@ nv.models.forceDirectedGraph = function() {
           nodeExtras(node);
 
           force.on("tick", function() {
+              console.log('test');
               link.attr("x1", function(d) { return d.source.x; })
                   .attr("y1", function(d) { return d.source.y; })
                   .attr("x2", function(d) { return d.target.x; })
                   .attr("y2", function(d) { return d.target.y; });
 
-              node.attr("transform", function(d) {
-                return "translate(" + d.x + ", " + d.y + ")";
+                  node.attr("transform", function(d) {
+                    var nodeRadius = d.weight * 2 + 12
+                   if(d.x<= nodeRadius){
+                   d.x = nodeRadius;
+                   }
+                   if(d.y<= nodeRadius){
+                   d.y = nodeRadius;
+                   }7
+                   if(d.x>width - nodeRadius){
+                   d.x = width - nodeRadius;
+                   }
+                   if(d.y>height - nodeRadius){
+                   d.y = height - nodeRadius;
+                   }
+                   return "translate(" + d.x + ", " + d.y + ")";
               });
             });
         });
